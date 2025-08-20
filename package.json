@@ -1,6 +1,6 @@
 {
   "name": "hello-cli-chatbot-widget",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "Componente de chat-bot personalizado para Next.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "dev": "microbundle-crl watch",
-    "build": "microbundle-crl --tsconfig tsconfig.build.json --no-compress --format modern,cjs",
+    "build": "microbundle-crl --config microbundle.config.js",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
@@ -26,6 +26,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
     "@types/axios": "^0.9.36",
     "@types/node": "^24.3.0",
     "@types/react": "^19.0.2",
@@ -57,12 +58,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pantuzzo/hello-cli-chatbot-widget.git"
+    "url": "https://github.com/pantuzzo/chatbot-widget.git"
   },
   "bugs": {
-    "url": "https://github.com/pantuzzo/hello-cli-chatbot-widget/issues"
+    "url": "https://github.com/pantuzzo/chatbot-widget/issues"
   },
-  "homepage": "https://github.com/pantuzzo/hello-cli-chatbot-widget#readme",
+  "homepage": "https://github.com/pantuzzo/chatbot-widget#readme",
   "engines": {
     "node": ">=14",
     "npm": ">=6"
@@ -110,6 +111,7 @@
     "recharts": "^3.1.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
+    "use-sync-external-store": "^1.5.0",
     "vaul": "^1.1.2"
   }
 }

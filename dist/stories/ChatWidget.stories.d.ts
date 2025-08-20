@@ -1,0 +1,11 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { ChatWidget } from "../components/chatbot/chat-widget";
+declare const meta: Meta<typeof ChatWidget>;
+export default meta;
+declare type Story = StoryObj<typeof ChatWidget>;
+export declare const Default: Story;
+export declare const RightPosition: Story;
+export declare const CustomColors: Story;
+export declare const OpenByDefault: Story;
+export declare const CustomMessages: Story;
+export declare const MinimalStyle: Story;
