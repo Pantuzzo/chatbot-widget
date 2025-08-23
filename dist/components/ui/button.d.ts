@@ -1,25 +1,10 @@
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
 declare const buttonVariants: (props?: ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined;
     size?: "default" | "sm" | "lg" | "icon" | null | undefined;
-} & {
-    class: import("clsx").ClassValue;
-    className?: undefined;
-}) | ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
-    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
-} & {
-    class?: undefined;
-    className: import("clsx").ClassValue;
-}) | ({
-    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
-    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
-} & {
-    class?: undefined;
-    className?: undefined;
-}) | undefined) => string;
+} & import("class-variance-authority/dist/types").ClassProp) | undefined) => string;
 declare function Button({ className, variant, size, asChild, ...props }: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
-}): React.JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 export { Button, buttonVariants };

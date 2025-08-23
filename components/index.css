@@ -1,0 +1,37 @@
+/* Importações Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos específicos do widget */
+@layer components {
+  .chat-widget-animate-slide-in {
+    animation: chat-widget-slide-in 0.3s ease-out;
+  }
+
+  @keyframes chat-widget-slide-in {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Variáveis CSS customizadas */
+@layer base {
+  .chat-widget-root {
+    --chat-primary: 222.2 47.4% 11.2%;
+    --chat-primary-foreground: 210 40% 98%;
+    --chat-border: 214.3 31.8% 91.4%;
+    --chat-input: 214.3 31.8% 91.4%;
+    --chat-ring: 222.2 84% 4.9%;
+    --chat-background: 0 0% 100%;
+    --chat-foreground: 222.2 47.4% 11.2%;
+    --chat-muted: 210 40% 96.1%;
+    --chat-muted-foreground: 215.4 16.3% 46.9%;
+  }
+}

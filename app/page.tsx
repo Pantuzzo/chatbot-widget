@@ -1,6 +1,7 @@
-"use client"
 
-import { ChatWidget } from "@/components/chatbot/chat-widget"
+
+// Make sure the import path matches the actual file location and casing
+import { ChatWidget } from "../components/chatbot/chat-widget"
 
 export default function Home() {
   return (

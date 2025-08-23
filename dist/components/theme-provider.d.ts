@@ -1,3 +1,2 @@
-import * as React from 'react';
-import { ThemeProviderProps } from 'next-themes';
-export declare function ThemeProvider({ children, ...props }: ThemeProviderProps): React.JSX.Element;
+import { type ThemeProviderProps } from 'next-themes';
+export declare function ThemeProvider({ children, ...props }: ThemeProviderProps): import("react/jsx-runtime").JSX.Element;

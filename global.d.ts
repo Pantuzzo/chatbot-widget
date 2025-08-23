@@ -1,6 +1,6 @@
 declare module 'hello-cli-chatbot-widget' {
-  import { ComponentType } from 'react';
-  
+  import { FC } from 'react';
+
   export interface Message {
     id: string;
     role: 'user' | 'bot';
@@ -8,7 +8,7 @@ declare module 'hello-cli-chatbot-widget' {
     createdAt: Date;
   }
 
-  export interface ChatBotProps {
+  export interface ChatWidgetProps {
     initialMessages?: Message[];
     placeholder?: string;
     onSendMessage?: (message: string) => void;
@@ -21,6 +21,6 @@ declare module 'hello-cli-chatbot-widget' {
     className?: string;
   }
 
-  export const ChatWidget: ComponentType<ChatBotProps>;
+  export const ChatWidget: FC<ChatWidgetProps>;
   export default ChatWidget;
 }

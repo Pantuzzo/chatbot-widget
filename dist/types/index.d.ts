@@ -4,7 +4,7 @@ export interface Message {
     content: string;
     createdAt: Date;
 }
-export interface ChatBotProps {
+export interface ChatWidgetProps {
     initialMessages?: Message[];
     placeholder?: string;
     onSendMessage?: (message: string) => void;

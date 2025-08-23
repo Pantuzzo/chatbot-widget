@@ -1,26 +1,33 @@
-import type { StorybookConfig } from "@storybook/nextjs"
+import type { StorybookConfig } from "@storybook/react-vite";
+import { dirname, join } from "path";
+import { mergeConfig } from "vite";
 
 const config: StorybookConfig = {
-  stories: ["../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
+  stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    '@storybook/addon-docs',
-    '@storybook/addon-viewport',
-    '@storybook/addon-controls',
-    '@storybook/addon-interactions',
-    '@storybook/addon-actions',
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
   ],
   framework: {
-    name: "@storybook/nextjs",
+    name: "@storybook/react-vite",
     options: {},
   },
-  typescript: {
-    check: false,
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
-    },
+  viteFinal: async (config) => {
+    return mergeConfig(config, {
+      resolve: {
+        alias: {
+          "@": join(dirname(__dirname)),
+          "@/components": join(dirname(__dirname), "components"),
+          "@/lib": join(dirname(__dirname), "lib"),
+          "@/hooks": join(dirname(__dirname), "hooks"),
+        },
+      },
+      css: {
+        postcss: join(__dirname, '..', 'postcss.config.js'),
+      },
+    });
   },
-}
+};
 
-export default config
+export default config;

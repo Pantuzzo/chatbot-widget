@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
-declare type ToasterToast = ToastProps & {
+type ToasterToast = ToastProps & {
     id: string;
     title?: React.ReactNode;
     description?: React.ReactNode;
@@ -12,8 +12,8 @@ declare const actionTypes: {
     readonly DISMISS_TOAST: "DISMISS_TOAST";
     readonly REMOVE_TOAST: "REMOVE_TOAST";
 };
-declare type ActionType = typeof actionTypes;
-declare type Action = {
+type ActionType = typeof actionTypes;
+type Action = {
     type: ActionType["ADD_TOAST"];
     toast: ToasterToast;
 } | {
@@ -30,7 +30,7 @@ interface State {
     toasts: ToasterToast[];
 }
 export declare const reducer: (state: State, action: Action) => State;
-declare type Toast = Omit<ToasterToast, "id">;
+type Toast = Omit<ToasterToast, "id">;
 declare function toast({ ...props }: Toast): {
     id: string;
     dismiss: () => void;
@@ -38,7 +38,7 @@ declare function toast({ ...props }: Toast): {
 };
 declare function useToast(): {
     toast: typeof toast;
-    dismiss: (toastId?: string | undefined) => void;
+    dismiss: (toastId?: string) => void;
     toasts: ToasterToast[];
 };
 export { toast, useToast };

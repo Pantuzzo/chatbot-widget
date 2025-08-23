@@ -1,34 +1,13 @@
-"use client"
+import { Avatar, AvatarFallback } from "../../components/ui/avatar";
+import { Button } from "../../components/ui/button";
+import { Card } from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { cn } from "../../lib/utils";
 
-import { Avatar, AvatarFallback } from "../../components/ui/avatar"
-import { Button } from "../../components/ui/button"
-import { Card } from "../../components/ui/card"
-import { Input } from "../../components/ui/input"
-import { ScrollArea } from "../../components/ui/scroll-area"
-import { cn } from "../../lib/utils"
-
-import { Bot, MessageCircle, Send, User, X } from "lucide-react"
-import React, { useEffect, useRef, useState } from 'react'
-
-export interface Message {
-  id: string
-  role: 'user' | 'bot'
-  content: string
-  createdAt: Date
-}
-
-export interface ChatBotProps {
-  initialMessages?: Message[]
-  placeholder?: string
-  onSendMessage?: (message: string) => void
-  position?: "left" | "right"
-  primaryColor?: string
-  title?: string
-  welcomeMessage?: string
-  onToggle?: (isOpen: boolean) => void
-  defaultOpen?: boolean
-  className?: string
-}
+import { Bot, MessageCircle, Send, User, X } from "lucide-react";
+import React, { useEffect, useRef, useState } from 'react';
+import type { Message, ChatWidgetProps } from '../../types/index';
 
 
 
@@ -43,7 +22,7 @@ export const ChatWidget = ({
   onToggle,
   defaultOpen = false,
   className,
-}: ChatBotProps) => {
+}: ChatWidgetProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpen)
   const [messages, setMessages] = useState<Message[]>(
     initialMessages.length > 0 
@@ -62,12 +41,28 @@ export const ChatWidget = ({
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // Modify the scrollToBottom function to be more reliable
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest"
+      });
+    }
   }
 
+  // Add a new useEffect to scroll when chat is opened
   useEffect(() => {
-    scrollToBottom()
+    if (isOpen) {
+      // Small delay to ensure DOM is updated
+      setTimeout(scrollToBottom, 100);
+    }
+  }, [isOpen]);
+
+  // Keep existing useEffect for messages
+  useEffect(() => {
+    scrollToBottom();
   }, [messages])
 
   useEffect(() => {
@@ -117,141 +112,161 @@ export const ChatWidget = ({
   }
 
   const positionClasses = {
-    left: "left-6 bottom-6",
-    right: "right-6 bottom-6",
+    left: "chat-widget-left-6 chat-widget-bottom-6",
+    right: "chat-widget-right-6 chat-widget-bottom-6",
   }
 
   const chatPositionClasses = {
-    left: "left-6 bottom-24",
-    right: "right-6 bottom-24",
+    left: "chat-widget-left-6 chat-widget-bottom-24",
+    right: "chat-widget-right-6 chat-widget-bottom-24",
   }
 
   return (
-    <div className={cn("fixed z-50", className)}>
-      <div className={cn("fixed", positionClasses[position])}>
-        <Button
-          onClick={handleToggle}
-          size="lg"
-          className={cn(
-            "h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110",
-            isOpen && "rotate-180",
-          )}
-          style={{ backgroundColor: primaryColor }}
-        >
-          {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-        </Button>
-      </div>
+    <div className="chat-widget-root">
+      <div className="chat-widget-fixed chat-widget-bottom-0 chat-widget-right-0 chat-widget-w-full chat-widget-max-w-[400px]">
+        <div className={cn("chat-widget-fixed chat-widget-z-50", positionClasses[position])}>
+          <Button
+            onClick={handleToggle}
+            size="lg"
+            className={cn(
+              "chat-widget-h-14 chat-widget-w-14 chat-widget-rounded-full chat-widget-shadow-lg hover:chat-widget-shadow-xl chat-widget-transition-all chat-widget-duration-300 chat-widget-ease-in-out chat-widget-flex chat-widget-items-center chat-widget-justify-center",
+              isOpen && "chat-widget-rotate-180"
+            )}
+            style={{ backgroundColor: primaryColor }}
+          >
+            {isOpen ? (
+              <X className="chat-widget-h-6 chat-widget-w-6 chat-widget-transition-transform chat-widget-text-white" />
+            ) : (
+              <MessageCircle className="chat-widget-h-6 chat-widget-w-6 chat-widget-transition-transform chat-widget-text-white" />
+            )}
+          </Button>
+        </div>
 
-      {isOpen && (
-        <div className={cn("fixed", chatPositionClasses[position])}>
-          <Card className="w-80 h-96 shadow-2xl animate-in slide-in-from-bottom-5 duration-300">
-            <div
-              className="flex items-center justify-between p-4 border-b rounded-t-lg text-white"
-              style={{ backgroundColor: primaryColor }}
-            >
-              <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-white/20">
-                    <Bot className="h-4 w-4" />
-                  </AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold text-sm">{title}</h3>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleToggle}
-                className="text-white hover:bg-white/20 h-8 w-8 p-0"
+        {isOpen && (
+          <div 
+            className={cn(
+              "chat-widget-fixed chat-widget-z-50 chat-widget-transition-all chat-widget-duration-300 chat-widget-ease-in-out chat-widget-bg-background",
+              chatPositionClasses[position],
+              "chat-widget-animate-slide-in"
+            )}
+          >
+            <Card className="chat-widget-w-80 chat-widget-h-96 chat-widget-shadow-2xl chat-widget-rounded-lg chat-widget-overflow-hidden chat-widget-flex chat-widget-flex-col">
+              {/* Header */}
+              <div
+                className="chat-widget-flex chat-widget-items-center chat-widget-justify-between chat-widget-p-4 chat-widget-border-b chat-widget-rounded-t-lg chat-widget-text-white chat-widget-shrink-0"
+                style={{ backgroundColor: primaryColor }}
               >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-
-            <ScrollArea className="flex-1 p-4 h-53">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={cn("flex gap-2", message.role === 'user' ? "justify-end" : "justify-start")}
-                  >
-                    {message.role === 'bot' && (
-                      <Avatar className="h-6 w-6 mt-1">
-                        <AvatarFallback className="bg-muted">
-                          <Bot className="h-3 w-3" />
-                        </AvatarFallback>
-                      </Avatar>
-                    )}
-                    <div
-                      className={cn(
-                        "max-w-[70%] rounded-lg px-3 py-2 text-sm",
-                        message.role === 'user'
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-muted-foreground",
-                      )}
-                    >
-                      {message.content}
-                    </div>
-                    {message.role === 'user' && (
-                      <Avatar className="h-6 w-6 mt-1">
-                        <AvatarFallback className="bg-primary">
-                          <User className="h-3 w-3 text-primary-foreground" />
-                        </AvatarFallback>
-                      </Avatar>
-                    )}
-                  </div>
-                ))}
-
-                {/* Indicador de digitação */}
-                {isTyping && (
-                  <div className="flex gap-2 justify-start">
-                    <Avatar className="h-6 w-6 mt-1">
-                      <AvatarFallback className="bg-muted">
-                        <Bot className="h-3 w-3" />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="bg-muted rounded-lg px-3 py-2">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" />
-                        <div
-                          className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        />
-                        <div
-                          className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-
-            {/* Input de Mensagem */}
-            <div className="p-4 border-t">
-              <div className="flex gap-2">
-                <Input
-                  ref={inputRef}
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={placeholder}
-                  className="flex-1"
-                />
+                <div className="chat-widget-flex chat-widget-items-center chat-widget-gap-2">
+                  <Avatar className="chat-widget-h-8 chat-widget-w-8">
+                    <AvatarFallback className="chat-widget-bg-white/20">
+                      <Bot className="chat-widget-h-4 chat-widget-w-4" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <h3 className="chat-widget-font-semibold chat-widget-text-sm">{title}</h3>
+                </div>
                 <Button
-                  onClick={handleSendMessage}
+                  variant="ghost"
                   size="sm"
-                  disabled={!inputValue.trim()}
-                  style={{ backgroundColor: primaryColor }}
+                  onClick={handleToggle}
+                  className="chat-widget-text-white hover:chat-widget-bg-white/20 chat-widget-h-8 chat-widget-w-8 chat-widget-p-0 chat-widget-flex chat-widget-items-center chat-widget-justify-center"
                 >
-                  <Send className="h-4 w-4" />
+                  <X className="chat-widget-h-4 chat-widget-w-4 chat-widget-text-white" />
                 </Button>
               </div>
-            </div>
-          </Card>
-        </div>
-      )}
+
+              {/* Messages Area */}
+              <ScrollArea className="chat-widget-flex-1 chat-widget-p-4 chat-widget-overflow-y-auto chat-widget-scroll-smooth">
+                <div className="chat-widget-space-y-4 chat-widget-pb-4">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={cn(
+                        "chat-widget-flex chat-widget-gap-2",
+                        message.role === 'user' ? "chat-widget-justify-end" : "chat-widget-justify-start"
+                      )}
+                    >
+                      {message.role === 'bot' && (
+                        <Avatar className="chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1">
+                          <AvatarFallback className="chat-widget-bg-muted">
+                            <Bot className="chat-widget-h-3 chat-widget-w-3" />
+                          </AvatarFallback>
+                        </Avatar>
+                      )}
+                      <div
+                        className={cn(
+                          "chat-widget-max-w-[70%] chat-widget-rounded-lg chat-widget-px-3 chat-widget-py-2 chat-widget-text-sm",
+                          message.role === 'user'
+                            ? "chat-widget-bg-primary chat-widget-text-primary-foreground"
+                            : "chat-widget-bg-muted chat-widget-text-muted-foreground"
+                        )}
+                      >
+                        {message.content}
+                      </div>
+                      {message.role === 'user' && (
+                        <Avatar className="chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1">
+                          <AvatarFallback className="chat-widget-bg-primary">
+                            <User className="chat-widget-h-3 chat-widget-w-3 chat-widget-text-primary-foreground" />
+                          </AvatarFallback>
+                        </Avatar>
+                      )}
+                    </div>
+                  ))}
+
+                  {isTyping && (
+                    <div className="chat-widget-flex chat-widget-gap-2 chat-widget-justify-start">
+                      <Avatar className="chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1">
+                        <AvatarFallback className="chat-widget-bg-muted">
+                          <Bot className="chat-widget-h-3 chat-widget-w-3" />
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="chat-widget-bg-muted chat-widget-rounded-lg chat-widget-px-3 chat-widget-py-2">
+                        <div className="chat-widget-flex chat-widget-gap-1">
+                          <div className="chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce" />
+                          <div
+                            className="chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          />
+                          <div
+                            className="chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div 
+                    ref={messagesEndRef} 
+                    className="chat-widget-h-px chat-widget-w-full" 
+                  />
+                </div>
+              </ScrollArea>
+
+              {/* Input Area - Update the send button */}
+              <div className="chat-widget-p-4 chat-widget-border-t chat-widget-mt-auto chat-widget-bg-background chat-widget-shrink-0">
+                <div className="chat-widget-flex chat-widget-gap-2">
+                  <Input
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder={placeholder}
+                    className="chat-widget-flex-1"
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    size="sm"
+                    disabled={!inputValue.trim()}
+                    style={{ backgroundColor: primaryColor }}
+                    className="chat-widget-px-4 chat-widget-py-2 chat-widget-rounded-full chat-widget-flex chat-widget-items-center chat-widget-justify-center chat-widget-transition-all hover:chat-widget-opacity-90"
+                  >
+                    <Send className="chat-widget-h-4 chat-widget-w-4 chat-widget-text-white" />
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};

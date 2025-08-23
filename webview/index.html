@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chat Widget WebView</title>
+    <link rel="stylesheet" href="../dist/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        #root {
+            height: 100%;
+            width: 100%;
+        }
+        .webview-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+        .webview-header {
+            padding: 16px;
+            text-align: center;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .webview-content {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="../dist/index.js"></script>
+    <script>
+        // Configuração do widget
+        const config = {
+            apiUrl: 'https://api.exemplo.com/chat',
+            initialMessage: 'Olá! Como posso ajudar você hoje?',
+            placeholder: 'Digite sua mensagem...',
+            // Adicione outras configurações conforme necessário
+        };
+        
+        // Função para inicializar o WebView quando estiver pronto
+        function initializeWebView() {
+            const container = document.getElementById('root');
+            
+            // Criando a estrutura do WebView
+            const webviewContainer = document.createElement('div');
+            webviewContainer.className = 'webview-container';
+            
+            const header = document.createElement('div');
+            header.className = 'webview-header';
+            header.innerHTML = '<h1>Chat Assistente</h1>';
+            
+            const content = document.createElement('div');
+            content.className = 'webview-content';
+            content.id = 'chat-widget-container';
+            
+            webviewContainer.appendChild(header);
+            webviewContainer.appendChild(content);
+            container.appendChild(webviewContainer);
+            
+            // Inicializar o chat widget no contêiner
+            if (window.HelloChatbotWidget) {
+                const { ChatWidget } = window.HelloChatbotWidget;
+                ReactDOM.render(
+                    React.createElement(ChatWidget, config),
+                    document.getElementById('chat-widget-container')
+                );
+            } else {
+                console.error('Chat widget não encontrado. Verifique se o build foi concluído corretamente.');
+            }
+        }
+        
+        // Inicializar quando o documento estiver pronto
+        document.addEventListener('DOMContentLoaded', initializeWebView);
+        
+        // Ponte para comunicação entre WebView e aplicativo nativo
+        window.webViewBridge = {
+            sendMessageToNative: function(message) {
+                // Para Android (Kotlin/Java)
+                if (window.Android) {
+                    window.Android.receiveMessage(JSON.stringify(message));
+                }
+                // Para iOS (Swift/Objective-C)
+                else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.messageHandler) {
+                    window.webkit.messageHandlers.messageHandler.postMessage(message);
+                }
+                // Fallback para console
+                else {
+                    console.log('Mensagem enviada para nativo:', message);
+                }
+            },
+            receiveMessageFromNative: function(message) {
+                console.log('Mensagem recebida do nativo:', message);
+                // Processar mensagem e atualizar UI se necessário
+            }
+        };
+    </script>
+</body>
+</html>
