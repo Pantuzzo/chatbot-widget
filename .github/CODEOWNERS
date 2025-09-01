@@ -1,0 +1,28 @@
+# These owners will be the default owners for everything in the repo.
+# Unless a later match takes precedence, these users will be requested for
+# review when someone opens a pull request.
+* @project-maintainer
+
+# WebView specific files
+/webview/ @webview-specialist
+/scripts/build-webview.js @webview-specialist
+/scripts/build-webview.sh @webview-specialist
+/scripts/deploy-webview.js @webview-specialist
+/dist-webview/ @webview-specialist
+
+# Component implementation
+/components/ @ui-team @component-specialist
+/hooks/ @react-specialist
+/lib/ @core-team
+
+# Build configuration
+*.config.js @build-specialist
+*.config.mjs @build-specialist
+*.config.ts @build-specialist
+
+# Package configuration
+package.json @project-maintainer @build-specialist
+pnpm-lock.yaml @project-maintainer
+
+# Documentation
+*.md @docs-team

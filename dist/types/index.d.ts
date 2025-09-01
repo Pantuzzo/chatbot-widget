@@ -9,6 +9,7 @@ export interface ChatWidgetProps {
     placeholder?: string;
     onSendMessage?: (message: string) => void;
     position?: "left" | "right";
+    height?: "min" | "med" | "max";
     primaryColor?: string;
     title?: string;
     welcomeMessage?: string;

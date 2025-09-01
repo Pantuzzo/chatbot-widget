@@ -21,6 +21,7 @@ declare module 'hello-cli-chatbot-widget' {
     onToggle?: (isOpen: boolean) => void;
     defaultOpen?: boolean;
     className?: string;
+    height?: "min" | "med" | "max";
   }
 
   export const ChatWidget: FC<ChatWidgetProps>;

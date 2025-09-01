@@ -4585,7 +4585,7 @@ const __iconNode = [
 ];
 const X = createLucideIcon("x", __iconNode);
 
-const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem...", onSendMessage, position = "left", primaryColor = "hsl(var(--primary))", title = "Assistente Virtual", welcomeMessage = "Olá! Como posso ajudá-lo hoje?", onToggle, defaultOpen = false, className, }) => {
+const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem...", onSendMessage, position = "left", primaryColor = "hsl(var(--primary))", title = "Assistente Virtual", welcomeMessage = "Olá! Como posso ajudá-lo hoje?", onToggle, defaultOpen = false, height = "max", className, }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const [messages, setMessages] = useState(initialMessages.length > 0
         ? initialMessages
@@ -4601,7 +4601,6 @@ const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem..
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
-    // Modify the scrollToBottom function to be more reliable
     const scrollToBottom = () => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({
@@ -4611,14 +4610,11 @@ const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem..
             });
         }
     };
-    // Add a new useEffect to scroll when chat is opened
     useEffect(() => {
         if (isOpen) {
-            // Small delay to ensure DOM is updated
             setTimeout(scrollToBottom, 100);
         }
     }, [isOpen]);
-    // Keep existing useEffect for messages
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
@@ -4663,16 +4659,78 @@ const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem..
         }
     };
     const positionClasses = {
-        left: "chat-widget-left-6 chat-widget-bottom-6",
-        right: "chat-widget-right-6 chat-widget-bottom-6",
+        left: "hello-cli-left-6 hello-cli-bottom-6",
+        right: "hello-cli-right-6 hello-cli-bottom-6",
     };
     const chatPositionClasses = {
-        left: "chat-widget-left-6 chat-widget-bottom-24",
-        right: "chat-widget-right-6 chat-widget-bottom-24",
+        left: "hello-cli-left-6 hello-cli-bottom-24",
+        right: "hello-cli-right-6 hello-cli-bottom-24",
     };
-    return (jsxRuntimeExports.jsx("div", { className: "chat-widget-root", children: jsxRuntimeExports.jsxs("div", { className: "chat-widget-fixed chat-widget-bottom-0 chat-widget-right-0 chat-widget-w-full chat-widget-max-w-[400px]", children: [jsxRuntimeExports.jsx("div", { className: cn("chat-widget-fixed chat-widget-z-50", positionClasses[position]), children: jsxRuntimeExports.jsx(Button, { onClick: handleToggle, size: "lg", className: cn("chat-widget-h-14 chat-widget-w-14 chat-widget-rounded-full chat-widget-shadow-lg hover:chat-widget-shadow-xl chat-widget-transition-all chat-widget-duration-300 chat-widget-ease-in-out chat-widget-flex chat-widget-items-center chat-widget-justify-center", isOpen && "chat-widget-rotate-180"), style: { backgroundColor: primaryColor }, children: isOpen ? (jsxRuntimeExports.jsx(X, { className: "chat-widget-h-6 chat-widget-w-6 chat-widget-transition-transform chat-widget-text-white" })) : (jsxRuntimeExports.jsx(MessageCircle, { className: "chat-widget-h-6 chat-widget-w-6 chat-widget-transition-transform chat-widget-text-white" })) }) }), isOpen && (jsxRuntimeExports.jsx("div", { className: cn("chat-widget-fixed chat-widget-z-50 chat-widget-transition-all chat-widget-duration-300 chat-widget-ease-in-out chat-widget-bg-background", chatPositionClasses[position], "chat-widget-animate-slide-in"), children: jsxRuntimeExports.jsxs(Card, { className: "chat-widget-w-80 chat-widget-h-96 chat-widget-shadow-2xl chat-widget-rounded-lg chat-widget-overflow-hidden chat-widget-flex chat-widget-flex-col", children: [jsxRuntimeExports.jsxs("div", { className: "chat-widget-flex chat-widget-items-center chat-widget-justify-between chat-widget-p-4 chat-widget-border-b chat-widget-rounded-t-lg chat-widget-text-white chat-widget-shrink-0", style: { backgroundColor: primaryColor }, children: [jsxRuntimeExports.jsxs("div", { className: "chat-widget-flex chat-widget-items-center chat-widget-gap-2", children: [jsxRuntimeExports.jsx(Avatar, { className: "chat-widget-h-8 chat-widget-w-8", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "chat-widget-bg-white/20", children: jsxRuntimeExports.jsx(Bot, { className: "chat-widget-h-4 chat-widget-w-4" }) }) }), jsxRuntimeExports.jsx("h3", { className: "chat-widget-font-semibold chat-widget-text-sm", children: title })] }), jsxRuntimeExports.jsx(Button, { variant: "ghost", size: "sm", onClick: handleToggle, className: "chat-widget-text-white hover:chat-widget-bg-white/20 chat-widget-h-8 chat-widget-w-8 chat-widget-p-0 chat-widget-flex chat-widget-items-center chat-widget-justify-center", children: jsxRuntimeExports.jsx(X, { className: "chat-widget-h-4 chat-widget-w-4 chat-widget-text-white" }) })] }), jsxRuntimeExports.jsx(ScrollArea, { className: "chat-widget-flex-1 chat-widget-p-4 chat-widget-overflow-y-auto chat-widget-scroll-smooth", children: jsxRuntimeExports.jsxs("div", { className: "chat-widget-space-y-4 chat-widget-pb-4", children: [messages.map((message) => (jsxRuntimeExports.jsxs("div", { className: cn("chat-widget-flex chat-widget-gap-2", message.role === 'user' ? "chat-widget-justify-end" : "chat-widget-justify-start"), children: [message.role === 'bot' && (jsxRuntimeExports.jsx(Avatar, { className: "chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "chat-widget-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "chat-widget-h-3 chat-widget-w-3" }) }) })), jsxRuntimeExports.jsx("div", { className: cn("chat-widget-max-w-[70%] chat-widget-rounded-lg chat-widget-px-3 chat-widget-py-2 chat-widget-text-sm", message.role === 'user'
-                                                        ? "chat-widget-bg-primary chat-widget-text-primary-foreground"
-                                                        : "chat-widget-bg-muted chat-widget-text-muted-foreground"), children: message.content }), message.role === 'user' && (jsxRuntimeExports.jsx(Avatar, { className: "chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "chat-widget-bg-primary", children: jsxRuntimeExports.jsx(User, { className: "chat-widget-h-3 chat-widget-w-3 chat-widget-text-primary-foreground" }) }) }))] }, message.id))), isTyping && (jsxRuntimeExports.jsxs("div", { className: "chat-widget-flex chat-widget-gap-2 chat-widget-justify-start", children: [jsxRuntimeExports.jsx(Avatar, { className: "chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "chat-widget-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "chat-widget-h-3 chat-widget-w-3" }) }) }), jsxRuntimeExports.jsx("div", { className: "chat-widget-bg-muted chat-widget-rounded-lg chat-widget-px-3 chat-widget-py-2", children: jsxRuntimeExports.jsxs("div", { className: "chat-widget-flex chat-widget-gap-1", children: [jsxRuntimeExports.jsx("div", { className: "chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce" }), jsxRuntimeExports.jsx("div", { className: "chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce", style: { animationDelay: "0.1s" } }), jsxRuntimeExports.jsx("div", { className: "chat-widget-w-2 chat-widget-h-2 chat-widget-bg-muted-foreground chat-widget-rounded-full chat-widget-animate-bounce", style: { animationDelay: "0.2s" } })] }) })] })), jsxRuntimeExports.jsx("div", { ref: messagesEndRef, className: "chat-widget-h-px chat-widget-w-full" })] }) }), jsxRuntimeExports.jsx("div", { className: "chat-widget-p-4 chat-widget-border-t chat-widget-mt-auto chat-widget-bg-background chat-widget-shrink-0", children: jsxRuntimeExports.jsxs("div", { className: "chat-widget-flex chat-widget-gap-2", children: [jsxRuntimeExports.jsx(Input, { ref: inputRef, value: inputValue, onChange: (e) => setInputValue(e.target.value), onKeyPress: handleKeyPress, placeholder: placeholder, className: "chat-widget-flex-1" }), jsxRuntimeExports.jsx(Button, { onClick: handleSendMessage, size: "sm", disabled: !inputValue.trim(), style: { backgroundColor: primaryColor }, className: "chat-widget-px-4 chat-widget-py-2 chat-widget-rounded-full chat-widget-flex chat-widget-items-center chat-widget-justify-center chat-widget-transition-all hover:chat-widget-opacity-90", children: jsxRuntimeExports.jsx(Send, { className: "chat-widget-h-4 chat-widget-w-4 chat-widget-text-white" }) })] }) })] }) }))] }) }));
+    const chatHeightClasses = {
+        min: "hello-cli-h-96",
+        med: "hello-cli-h-[30rem]",
+        max: "hello-cli-h-[36rem]",
+    };
+    return (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-root", "hello-cli-chatwidget-wrapper", className), children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-fixed hello-cli-bottom-0 hello-cli-right-0 hello-cli-w-full hello-cli-max-w-[400px]", "hello-cli-chatwidget-container"), children: [jsxRuntimeExports.jsx("div", { className: cn("hello-cli-fixed hello-cli-z-50", "hello-cli-button-container", positionClasses[position]), children: jsxRuntimeExports.jsx(Button, { onClick: handleToggle, size: "lg", className: cn("hello-cli-h-14 hello-cli-w-14 hello-cli-rounded-full hello-cli-shadow-lg hover:hello-cli-shadow-xl hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-flex hello-cli-items-center hello-cli-justify-center", "hello-cli-chat-button", isOpen && "hello-cli-rotate-180"), style: { backgroundColor: primaryColor }, children: isOpen ? (jsxRuntimeExports.jsx(X, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) : (jsxRuntimeExports.jsx(MessageCircle, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) }) }), isOpen && (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-fixed hello-cli-z-50 hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-bg-background", chatPositionClasses[position], "hello-cli-animate-slide-in", "hello-cli-chat-container"), children: jsxRuntimeExports.jsxs(Card, { className: cn("hello-cli-w-80 hello-cli-shadow-2xl hello-cli-rounded-lg hello-cli-overflow-hidden hello-cli-flex hello-cli-flex-col", chatHeightClasses[height], "hello-cli-card"), style: {
+                            width: '20rem',
+                            borderRadius: '0.5rem',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                        }, children: [jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-items-center hello-cli-justify-between hello-cli-p-4 hello-cli-border-b hello-cli-rounded-t-lg hello-cli-text-white hello-cli-shrink-0", "hello-cli-header"), style: {
+                                    backgroundColor: primaryColor,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    padding: '1rem',
+                                    borderBottom: '1px solid rgba(0,0,0,0.1)',
+                                    borderTopLeftRadius: '0.5rem',
+                                    borderTopRightRadius: '0.5rem',
+                                    color: 'white',
+                                    flexShrink: 0
+                                }, children: [jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-items-center hello-cli-gap-2", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-8 hello-cli-w-8", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-white/20", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-4 hello-cli-w-4" }) }) }), jsxRuntimeExports.jsx("h3", { className: "hello-cli-font-semibold hello-cli-text-sm", children: title })] }), jsxRuntimeExports.jsx(Button, { variant: "ghost", size: "sm", onClick: handleToggle, className: "hello-cli-text-white hover:hello-cli-bg-white/20 hello-cli-h-8 hello-cli-w-8 hello-cli-p-0 hello-cli-flex hello-cli-items-center hello-cli-justify-center", children: jsxRuntimeExports.jsx(X, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }), jsxRuntimeExports.jsx(ScrollArea, { className: cn("hello-cli-flex-1 hello-cli-p-4 hello-cli-overflow-y-auto hello-cli-scroll-smooth", "hello-cli-messages-area"), style: {
+                                    flex: '1',
+                                    padding: '1rem',
+                                    overflowY: 'auto',
+                                    scrollBehavior: 'smooth'
+                                }, children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-space-y-4 hello-cli-pb-4", "hello-cli-message-list"), style: {
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '1rem',
+                                        paddingBottom: '1rem'
+                                    }, children: [messages.map((message) => (jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-gap-2", "hello-cli-message-row", message.role === 'user' ? "hello-cli-justify-end hello-cli-user-row" : "hello-cli-justify-start hello-cli-bot-row"), style: {
+                                                display: 'flex',
+                                                gap: '0.5rem',
+                                                justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start'
+                                            }, children: [message.role === 'bot' && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) })), jsxRuntimeExports.jsx("div", { className: cn("hello-cli-max-w-[70%] hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2 hello-cli-text-sm hello-cli-message-bubble", message.role === 'user'
+                                                        ? "hello-cli-bg-primary hello-cli-text-primary-foreground hello-cli-user-message"
+                                                        : "hello-cli-bg-muted hello-cli-text-muted-foreground hello-cli-bot-message"), style: {
+                                                        borderRadius: '0.5rem',
+                                                        backgroundColor: message.role === 'user'
+                                                            ? 'hsl(222.2, 47.4%, 11.2%)'
+                                                            : 'hsl(210, 40%, 96.1%)',
+                                                        color: message.role === 'user'
+                                                            ? '#ffffff'
+                                                            : 'hsl(215.4, 16.3%, 46.9%)',
+                                                        padding: '0.5rem 0.75rem',
+                                                        maxWidth: '70%',
+                                                        overflow: 'hidden'
+                                                    }, children: message.content }), message.role === 'user' && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-primary", children: jsxRuntimeExports.jsx(User, { className: "hello-cli-h-3 hello-cli-w-3 hello-cli-text-primary-foreground" }) }) }))] }, message.id))), isTyping && (jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-2 hello-cli-justify-start", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) }), jsxRuntimeExports.jsx("div", { className: "hello-cli-bg-muted hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2", children: jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-1", children: [jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce" }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { animationDelay: "0.1s" } }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { animationDelay: "0.2s" } })] }) })] })), jsxRuntimeExports.jsx("div", { ref: messagesEndRef, className: "hello-cli-h-px hello-cli-w-full" })] }) }), jsxRuntimeExports.jsx("div", { className: cn("hello-cli-p-4 hello-cli-border-t hello-cli-mt-auto hello-cli-bg-background hello-cli-shrink-0", "hello-cli-input-area"), style: {
+                                    padding: '1rem',
+                                    borderTop: '1px solid rgba(0,0,0,0.1)',
+                                    marginTop: 'auto',
+                                    backgroundColor: 'white',
+                                    flexShrink: 0
+                                }, children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-gap-2", "hello-cli-input-container"), style: {
+                                        display: 'flex',
+                                        gap: '0.5rem'
+                                    }, children: [jsxRuntimeExports.jsx(Input, { ref: inputRef, value: inputValue, onChange: (e) => setInputValue(e.target.value), onKeyPress: handleKeyPress, placeholder: placeholder, className: cn("hello-cli-flex-1", "hello-cli-input"), style: {
+                                                flex: '1',
+                                                padding: '0.5rem',
+                                                borderRadius: '0.375rem',
+                                                border: '1px solid #e2e8f0'
+                                            } }), jsxRuntimeExports.jsx(Button, { onClick: handleSendMessage, size: "sm", disabled: !inputValue.trim(), style: { backgroundColor: primaryColor }, className: cn("hello-cli-px-4 hello-cli-py-2 hello-cli-rounded-full hello-cli-flex hello-cli-items-center hello-cli-justify-center hello-cli-transition-all hover:hello-cli-opacity-90", "hello-cli-send-button"), children: jsxRuntimeExports.jsx(Send, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }) })] }) }))] }) }));
 };
 
 // Updated UUID generation function with proper type checking

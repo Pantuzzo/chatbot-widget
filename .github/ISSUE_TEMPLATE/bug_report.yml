@@ -1,0 +1,86 @@
+name: "🐛 Bug Report"
+description: Report a bug in the Hello CLI Chatbot Widget
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+        
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: Please check the following before submitting a bug report
+      options:
+        - label: I have checked the existing issues and this is not a duplicate
+          required: true
+        - label: I have tested with the latest version of the library
+          required: true
+          
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of the library are you using?
+      placeholder: "1.25.0"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where are you using the chat widget?
+      options:
+        - React Web Application
+        - WebView in Native App
+        - Next.js Application
+        - Other (please specify in description)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug
+      placeholder: When I try to...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Install the package
+        2. Import the component
+        3. Add the following props...
+        4. See error
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen
+      placeholder: The chat widget should...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: code-snippet
+    attributes:
+      label: Code Snippet
+      description: If applicable, add a code snippet to help explain your problem
+      render: tsx
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: Browser version, device type, etc.

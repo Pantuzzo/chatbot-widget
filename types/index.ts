@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 export interface Message {
   id: string
   role: 'user' | 'bot'
@@ -12,10 +10,33 @@ export interface ChatWidgetProps {
   placeholder?: string
   onSendMessage?: (message: string) => void
   position?: "left" | "right"
+  height?: "min" | "med" | "max"
   primaryColor?: string
   title?: string
   welcomeMessage?: string
   onToggle?: (isOpen: boolean) => void
   defaultOpen?: boolean
+  className?: string
+}
+
+// Versões em português das interfaces
+export interface Mensagem {
+  id: string
+  role: 'user' | 'bot'
+  content: string
+  createdAt: Date
+}
+
+export interface PropsChatWidget {
+  mensagensIniciais?: Mensagem[]
+  placeholder?: string
+  aoEnviarMensagem?: (mensagem: string) => void
+  posicao?: "left" | "right"
+  altura?: "min" | "med" | "max"
+  corPrimaria?: string
+  titulo?: string
+  mensagemBoasVindas?: string
+  aoAlternar?: (estaAberto: boolean) => void
+  abertoPadrao?: boolean
   className?: string
 }

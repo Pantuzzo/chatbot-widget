@@ -72,7 +72,7 @@
             
             const content = document.createElement('div');
             content.className = 'webview-content';
-            content.id = 'chat-widget-container';
+            content.id = 'hello-cli-container';
             
             webviewContainer.appendChild(header);
             webviewContainer.appendChild(content);
@@ -83,7 +83,7 @@
                 const { ChatWidget } = window.HelloChatbotWidget;
                 ReactDOM.render(
                     React.createElement(ChatWidget, config),
-                    document.getElementById('chat-widget-container')
+                    document.getElementById('hello-cli-container')
                 );
             } else {
                 console.error('Chat widget não encontrado. Verifique se o build foi concluído corretamente.');

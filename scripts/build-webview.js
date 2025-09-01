@@ -24,6 +24,12 @@ try {
     path.join(OUTPUT_DIR, 'index.html')
   );
   
+  // Copiar página de demonstração
+  fs.copyFileSync(
+    path.join(__dirname, '../webview/demo.html'),
+    path.join(OUTPUT_DIR, 'demo.html')
+  );
+  
   // Copiar JS
   fs.copyFileSync(
     path.join(__dirname, '../dist/index.js'),

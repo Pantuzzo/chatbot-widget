@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --chat-border: hsl(214.3 31.8% 91.4%);
-    --chat-input: hsl(214.3 31.8% 91.4%);
-    --chat-ring: hsl(222.2 84% 4.9%);
-    --chat-background: hsl(0 0% 100%);
-    --chat-foreground: hsl(222.2 47.4% 11.2%);
-    --chat-radius: 0.5rem;
+    --hello-cli-border: hsl(214.3 31.8% 91.4%);
+    --hello-cli-input: hsl(214.3 31.8% 91.4%);
+    --hello-cli-ring: hsl(222.2 84% 4.9%);
+    --hello-cli-background: hsl(0 0% 100%);
+    --hello-cli-foreground: hsl(222.2 47.4% 11.2%);
+    --hello-cli-radius: 0.5rem;
 
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
@@ -29,39 +29,39 @@
     --ring: oklch(0.708 0 0);
     --radius: 0.625rem;
 
-    --chat-background: oklch(1 0 0);
-    --chat-foreground: oklch(0.145 0 0);
-    --chat-primary: oklch(0.205 0 0);
-    --chat-primary-foreground: oklch(0.985 0 0);
-    --chat-secondary: oklch(0.97 0 0);
-    --chat-secondary-foreground: oklch(0.205 0 0);
-    --chat-muted: oklch(0.97 0 0);
-    --chat-muted-foreground: oklch(0.556 0 0);
-    --chat-accent: oklch(0.97 0 0);
-    --chat-accent-foreground: oklch(0.205 0 0);
-    --chat-border: oklch(0.922 0 0);
-    --chat-ring: oklch(0.708 0 0);
-    --chat-radius: 0.625rem;
+    --hello-cli-background: oklch(1 0 0);
+    --hello-cli-foreground: oklch(0.145 0 0);
+    --hello-cli-primary: oklch(0.205 0 0);
+    --hello-cli-primary-foreground: oklch(0.985 0 0);
+    --hello-cli-secondary: oklch(0.97 0 0);
+    --hello-cli-secondary-foreground: oklch(0.205 0 0);
+    --hello-cli-muted: oklch(0.97 0 0);
+    --hello-cli-muted-foreground: oklch(0.556 0 0);
+    --hello-cli-accent: oklch(0.97 0 0);
+    --hello-cli-accent-foreground: oklch(0.205 0 0);
+    --hello-cli-border: oklch(0.922 0 0);
+    --hello-cli-ring: oklch(0.708 0 0);
+    --hello-cli-radius: 0.625rem;
   }
 
   .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
 
-    --chat-background: oklch(0.145 0 0);
-    --chat-foreground: oklch(0.985 0 0);
+    --hello-cli-background: oklch(0.145 0 0);
+    --hello-cli-foreground: oklch(0.985 0 0);
   }
 
   * {
-    @apply chat-widget-border-border;
+    @apply hello-cli-border-border;
     outline: none;
   }
 
   body {
-    @apply chat-widget-bg-background chat-widget-text-foreground;
+    @apply hello-cli-bg-background hello-cli-text-foreground;
   }
 }
 
-.chat-widget {
-  @apply chat-widget-relative chat-widget-w-full chat-widget-max-w-[400px];
+.hello-cli {
+  @apply hello-cli-relative hello-cli-w-full hello-cli-max-w-[400px];
 }

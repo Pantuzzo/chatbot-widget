@@ -19,34 +19,34 @@ const Message = ({ id, type, text, timestamp }: MessageProps) => {
     <div
       key={id}
       className={cn(
-        "chat-widget-flex chat-widget-gap-2",
-        isUser ? "chat-widget-justify-end" : "chat-widget-justify-start"
+        "hello-cli-flex hello-cli-gap-2",
+        isUser ? "hello-cli-justify-end" : "hello-cli-justify-start"
       )}
     >
       {!isUser && (
-        <Avatar className="chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1">
-          <AvatarFallback className="chat-widget-bg-muted">
-            <Bot className="chat-widget-h-3 chat-widget-w-3" />
+        <Avatar className="hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1">
+          <AvatarFallback className="hello-cli-bg-muted">
+            <Bot className="hello-cli-h-3 hello-cli-w-3" />
           </AvatarFallback>
         </Avatar>
       )}
 
       <div
         className={cn(
-          "chat-widget-max-w-[70%] chat-widget-rounded-lg chat-widget-px-3 chat-widget-py-2",
+          "hello-cli-max-w-[70%] hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2",
           isUser
-            ? "chat-widget-bg-primary chat-widget-text-primary-foreground"
-            : "chat-widget-bg-muted chat-widget-text-muted-foreground"
+            ? "hello-cli-bg-primary hello-cli-text-primary-foreground"
+            : "hello-cli-bg-muted hello-cli-text-muted-foreground"
         )}
       >
-        <p className="chat-widget-m-0 chat-widget-text-sm">{text}</p>
+        <p className="hello-cli-m-0 hello-cli-text-sm">{text}</p>
         {timestamp && (
           <span
             className={cn(
-              "chat-widget-block chat-widget-text-xs chat-widget-mt-1 chat-widget-text-right",
+              "hello-cli-block hello-cli-text-xs hello-cli-mt-1 hello-cli-text-right",
               isUser
-                ? "chat-widget-text-primary-foreground/80"
-                : "chat-widget-text-muted-foreground/80"
+                ? "hello-cli-text-primary-foreground/80"
+                : "hello-cli-text-muted-foreground/80"
             )}
           >
             {timestamp.toLocaleTimeString([], {
@@ -58,9 +58,9 @@ const Message = ({ id, type, text, timestamp }: MessageProps) => {
       </div>
 
       {isUser && (
-        <Avatar className="chat-widget-h-6 chat-widget-w-6 chat-widget-mt-1">
-          <AvatarFallback className="chat-widget-bg-primary">
-            <User className="chat-widget-h-3 chat-widget-w-3 chat-widget-text-primary-foreground" />
+        <Avatar className="hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1">
+          <AvatarFallback className="hello-cli-bg-primary">
+            <User className="hello-cli-h-3 hello-cli-w-3 hello-cli-text-primary-foreground" />
           </AvatarFallback>
         </Avatar>
       )}

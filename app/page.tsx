@@ -1,7 +1,7 @@
 
 
 // Make sure the import path matches the actual file location and casing
-import { ChatWidget } from "../components/chatbot/chat-widget"
+import { ChatWidget } from "../components/chatbot/hello-cli"
 
 export default function Home() {
   return (

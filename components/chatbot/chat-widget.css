@@ -1,0 +1,161 @@
+/* Estilos essenciais para o ChatWidget que funcionam mesmo sem o Tailwind */
+.hello-cli-chatwidget-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 400px;
+  z-index: 50;
+}
+
+.hello-cli-button-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+}
+
+.hello-cli-chat-button {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+.hello-cli-chat-container {
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  z-index: 50;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+  animation: hello-cli-slide-in 0.3s ease-out;
+}
+
+.hello-cli-card {
+  width: 20rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hello-cli-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.hello-cli-messages-area {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.hello-cli-message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+
+.hello-cli-message-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hello-cli-user-row {
+  justify-content: flex-end;
+}
+
+.hello-cli-bot-row {
+  justify-content: flex-start;
+}
+
+.hello-cli-message-bubble {
+  max-width: 70%;
+  border-radius: 0.5rem !important;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  overflow: hidden;
+}
+
+.hello-cli-user-message {
+  background-color: hsl(222.2, 47.4%, 11.2%);
+  color: white;
+  border-top-right-radius: 0.25rem !important;
+}
+
+.hello-cli-bot-message {
+  background-color: hsl(210, 40%, 96.1%);
+  color: hsl(215.4, 16.3%, 46.9%);
+  border-top-left-radius: 0.25rem !important;
+}
+
+.hello-cli-input-area {
+  padding: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  margin-top: auto;
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.hello-cli-input-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hello-cli-input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+}
+
+.hello-cli-send-button {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes hello-cli-slide-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hello-cli-h-96 {
+  height: 24rem;
+}
+
+.hello-cli-h-\[30rem\] {
+  height: 30rem;
+}
+
+.hello-cli-h-\[36rem\] {
+  height: 36rem;
+}

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: 'chat-widget-',
+  prefix: 'hello-cli-',
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,32 +13,32 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        border: "var(--chat-border)",
-        input: "var(--chat-input)",        // adicionado
-        ring: "var(--chat-ring)",          // adicionado
-        background: "var(--chat-background)",
-        foreground: "var(--chat-foreground)",
+        border: "var(--hello-cli-border)",
+        input: "var(--hello-cli-input)",        // adicionado
+        ring: "var(--hello-cli-ring)",          // adicionado
+        background: "var(--hello-cli-background)",
+        foreground: "var(--hello-cli-foreground)",
         primary: {
-          DEFAULT: "var(--chat-primary)",
-          foreground: "var(--chat-primary-foreground)",
+          DEFAULT: "var(--hello-cli-primary)",
+          foreground: "var(--hello-cli-primary-foreground)",
         },
         secondary: {
-          DEFAULT: "var(--chat-secondary)",
-          foreground: "var(--chat-secondary-foreground)",
+          DEFAULT: "var(--hello-cli-secondary)",
+          foreground: "var(--hello-cli-secondary-foreground)",
         },
         muted: {
-          DEFAULT: "var(--chat-muted)",
-          foreground: "var(--chat-muted-foreground)",
+          DEFAULT: "var(--hello-cli-muted)",
+          foreground: "var(--hello-cli-muted-foreground)",
         },
         accent: {
-          DEFAULT: "var(--chat-accent)",
-          foreground: "var(--chat-accent-foreground)",
+          DEFAULT: "var(--hello-cli-accent)",
+          foreground: "var(--hello-cli-accent-foreground)",
         },
       },
       borderRadius: {
-        lg: "var(--chat-radius)",
-        md: "calc(var(--chat-radius) - 2px)",
-        sm: "calc(var(--chat-radius) - 4px)",
+        lg: "var(--hello-cli-radius)",
+        md: "calc(var(--hello-cli-radius) - 2px)",
+        sm: "calc(var(--hello-cli-radius) - 4px)",
       },
       keyframes: {
         "slide-in": {

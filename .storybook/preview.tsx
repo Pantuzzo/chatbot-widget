@@ -26,7 +26,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className="chat-widget-fixed chat-widget-bottom-0 chat-widget-right-0 chat-widget-p-4">
+      <div className="hello-cli-fixed hello-cli-bottom-0 hello-cli-right-0 hello-cli-p-4">
         <Story />
       </div>
     ),
