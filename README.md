@@ -73,7 +73,93 @@ import { ChatWidget } from 'hello-cli-chatbot-widget';
   defaultOpen={false}
   height="max" // "min", "med", ou "max"
   className="meu-chat-customizado"
+  isTyping={estadoDigitacao} // Controle externo do indicador de digitação
+  onTypingChange={(estaDigitando) => console.log("Estado de digitação:", estaDigitando)}
 />
+```
+
+### Controlando o Indicador de Digitação
+
+O componente oferece duas maneiras de controlar o indicador de digitação:
+
+#### 1. Via Props
+
+```tsx
+import { useState } from 'react';
+import { ChatWidget } from 'hello-cli-chatbot-widget';
+
+function MinhaPagina() {
+  const [estaDigitando, setEstaDigitando] = useState(false);
+  
+  const enviarMensagem = async (mensagem) => {
+    // Ativar o indicador de digitação
+    setEstaDigitando(true);
+    
+    try {
+      // Enviar a mensagem para API
+      await minhaAPI.enviarMensagem(mensagem);
+      
+      // Outros processamentos...
+    } finally {
+      // Desativar o indicador de digitação
+      setEstaDigitando(false);
+    }
+  };
+  
+  return (
+    <ChatWidget
+      onSendMessage={enviarMensagem}
+      isTyping={estaDigitando}
+      onTypingChange={(estado) => console.log("Mudança de estado:", estado)}
+    />
+  );
+}
+```
+
+#### 2. Via Hook
+
+```tsx
+import { useIndicadorDigitacao } from 'hello-cli-chatbot-widget';
+
+function MeuComponente() {
+  const { 
+    estaDigitando, 
+    iniciarDigitacao, 
+    pararDigitacao, 
+    digitarPorTempo 
+  } = useIndicadorDigitacao({ duracao: 2000 });
+  
+  const processarMensagem = async () => {
+    // Inicia a digitação
+    iniciarDigitacao();
+    
+    try {
+      // Processar a mensagem...
+      await minhaAPI.processar();
+    } finally {
+      // Para a digitação quando terminar
+      pararDigitacao();
+    }
+  };
+  
+  const mostrarSugestao = () => {
+    // Mostra a digitação por 2 segundos e depois para automaticamente
+    digitarPorTempo();
+    
+    // Executa algo após a digitação...
+    setTimeout(() => {
+      // Código a executar após o término da digitação
+    }, 2000);
+  };
+  
+  return (
+    <div>
+      <p>Estado atual: {estaDigitando ? 'Digitando...' : 'Parado'}</p>
+      <button onClick={processarMensagem}>Processar com digitação</button>
+      <button onClick={mostrarSugestao}>Mostrar sugestão</button>
+    </div>
+  );
+}
 ```
 
 ### Usando Componentes Modulares

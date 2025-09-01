@@ -37,6 +37,8 @@ export const ChatWidget = ({
     defaultOpen = false,
     height = "max",
     className,
+    isTyping: externalTypingState,
+    onTypingChange,
 }: ChatWidgetProps) => {
     // Estados
     const [estaAberto, setEstaAberto] = useState(defaultOpen);
@@ -53,7 +55,15 @@ export const ChatWidget = ({
             ]
     );
     const [valorEntrada, setValorEntrada] = useState("");
-    const [estaDigitando, setEstaDigitando] = useState(false);
+    const [estaDigitandoInterno, setEstaDigitandoInterno] = useState(false);
+
+    // Usar estado de digitação externo se fornecido, ou interno se não
+    const estaDigitando = externalTypingState !== undefined ? externalTypingState : estaDigitandoInterno;
+
+    // Debug - remover em produção
+    useEffect(() => {
+        console.log('Estado de digitação:', estaDigitando);
+    }, [estaDigitando]);
 
     // Referências
     const finalMensagensRef = useRef<HTMLDivElement>(null);
@@ -74,11 +84,26 @@ export const ChatWidget = ({
     // Funções
     const scrollParaFinal = () => {
         if (finalMensagensRef.current) {
-            finalMensagensRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "end",
-                inline: "nearest"
-            });
+            try {
+                finalMensagensRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "end",
+                    inline: "nearest"
+                });
+
+                // Backup para garantir que o scroll aconteça
+                const parentElement = finalMensagensRef.current.parentElement;
+                if (parentElement) {
+                    parentElement.scrollTop = parentElement.scrollHeight;
+                }
+
+                // Log para debug
+                console.log('Scroll executado para elemento:', finalMensagensRef.current);
+            } catch (error) {
+                console.error('Erro ao fazer scroll:', error);
+            }
+        } else {
+            console.warn('Referência para o final das mensagens não encontrada');
         }
     };
 
@@ -103,7 +128,11 @@ export const ChatWidget = ({
         onSendMessage?.(valorEntrada);
 
         // Simulando resposta (remover em implementação real)
-        setEstaDigitando(true);
+        const novoEstadoDigitacao = true;
+        setEstaDigitandoInterno(novoEstadoDigitacao);
+        onTypingChange?.(novoEstadoDigitacao);
+
+        // Garanta que o indicador de digitação apareça por pelo menos 2 segundos
         setTimeout(() => {
             const mensagemBot: Message = {
                 id: (Date.now() + 1).toString(),
@@ -112,8 +141,11 @@ export const ChatWidget = ({
                 createdAt: new Date(),
             };
             setMensagens((prev) => [...prev, mensagemBot]);
-            setEstaDigitando(false);
-        }, 1500);
+
+            const estadoFinalDigitacao = false;
+            setEstaDigitandoInterno(estadoFinalDigitacao);
+            onTypingChange?.(estadoFinalDigitacao);
+        }, 3000);
     };
 
     const aoTeclarEnter = (e: React.KeyboardEvent) => {
@@ -126,13 +158,22 @@ export const ChatWidget = ({
     // Efeitos
     useEffect(() => {
         if (estaAberto) {
+            // Rolar para o final quando o chat for aberto
             setTimeout(scrollParaFinal, 100);
         }
     }, [estaAberto]);
 
     useEffect(() => {
-        scrollParaFinal();
+        // Rolar para o final quando mensagens mudam
+        setTimeout(scrollParaFinal, 10);
     }, [mensagens]);
+
+    useEffect(() => {
+        // Rolar para o final quando o estado de digitação muda
+        if (estaDigitando) {
+            setTimeout(scrollParaFinal, 10);
+        }
+    }, [estaDigitando]);
 
     useEffect(() => {
         if (estaAberto && inputRef.current) {
@@ -177,6 +218,7 @@ export const ChatWidget = ({
                             <AreaMensagens
                                 mensagens={mensagens}
                                 estaDigitando={estaDigitando}
+                                refFinal={finalMensagensRef}
                             />
 
                             {/* Área de entrada */}

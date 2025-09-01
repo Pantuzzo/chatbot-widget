@@ -3,10 +3,10 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var require$$0 = require('react');
-var AvatarPrimitive = require('@radix-ui/react-avatar');
 var clsx = require('clsx');
 var reactSlot = require('@radix-ui/react-slot');
 var classVarianceAuthority = require('class-variance-authority');
+var AvatarPrimitive = require('@radix-ui/react-avatar');
 var ScrollAreaPrimitive = require('@radix-ui/react-scroll-area');
 var reactQuery = require('@tanstack/react-query');
 var axios = require('axios');
@@ -4376,11 +4376,8 @@ function cn(...inputs) {
     return twMerge(clsx.clsx(inputs.filter(Boolean))); // Filter out falsy values
 }
 
-function Avatar({ className, ...props }) {
-    return (jsxRuntimeExports.jsx(AvatarPrimitive__namespace.Root, { "data-slot": "avatar", className: cn("relative flex size-8 shrink-0 overflow-hidden rounded-full", className), ...props }));
-}
-function AvatarFallback({ className, ...props }) {
-    return (jsxRuntimeExports.jsx(AvatarPrimitive__namespace.Fallback, { "data-slot": "avatar-fallback", className: cn("bg-muted flex size-full items-center justify-center rounded-full", className), ...props }));
+function Card({ className, ...props }) {
+    return (jsxRuntimeExports.jsx("div", { "data-slot": "card", className: cn("bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm", className), ...props }));
 }
 
 const buttonVariants = classVarianceAuthority.cva("inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive", {
@@ -4408,23 +4405,6 @@ const buttonVariants = classVarianceAuthority.cva("inline-flex items-center just
 function Button({ className, variant, size, asChild = false, ...props }) {
     const Comp = asChild ? reactSlot.Slot : "button";
     return (jsxRuntimeExports.jsx(Comp, { "data-slot": "button", className: cn(buttonVariants({ variant, size, className })), ...props }));
-}
-
-function Card({ className, ...props }) {
-    return (jsxRuntimeExports.jsx("div", { "data-slot": "card", className: cn("bg-card text-card-foreground flex flex-col gap-6 rounded-xl border shadow-sm", className), ...props }));
-}
-
-function Input({ className, type, ...props }) {
-    return (jsxRuntimeExports.jsx("input", { type: type, "data-slot": "input", className: cn("file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]", "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive", className), ...props }));
-}
-
-function ScrollArea({ className, children, ...props }) {
-    return (jsxRuntimeExports.jsxs(ScrollAreaPrimitive__namespace.Root, { "data-slot": "scroll-area", className: cn("relative", className), ...props, children: [jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.Viewport, { "data-slot": "scroll-area-viewport", className: "focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1", children: children }), jsxRuntimeExports.jsx(ScrollBar, {}), jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.Corner, {})] }));
-}
-function ScrollBar({ className, orientation = "vertical", ...props }) {
-    return (jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.ScrollAreaScrollbar, { "data-slot": "scroll-area-scrollbar", orientation: orientation, className: cn("flex touch-none p-px transition-colors select-none", orientation === "vertical" &&
-            "h-full w-2.5 border-l border-l-transparent", orientation === "horizontal" &&
-            "h-2.5 flex-col border-t border-t-transparent", className), ...props, children: jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.ScrollAreaThumb, { "data-slot": "scroll-area-thumb", className: "bg-border relative flex-1 rounded-full" }) }));
 }
 
 /**
@@ -4614,9 +4594,94 @@ const __iconNode = [
 ];
 const X = createLucideIcon("x", __iconNode);
 
-const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem...", onSendMessage, position = "left", primaryColor = "hsl(var(--primary))", title = "Assistente Virtual", welcomeMessage = "Olá! Como posso ajudá-lo hoje?", onToggle, defaultOpen = false, height = "max", className, }) => {
-    const [isOpen, setIsOpen] = require$$0.useState(defaultOpen);
-    const [messages, setMessages] = require$$0.useState(initialMessages.length > 0
+const BotaoToggle = ({ estaAberto, aoAlternar, corPrimaria, posicao }) => {
+    // Constantes para posicionamento
+    const classesPosicao = {
+        left: 'hello-cli-left-6 hello-cli-bottom-6',
+        right: 'hello-cli-right-6 hello-cli-bottom-6',
+    };
+    // Estilos
+    const estiloBotao = {
+        backgroundColor: corPrimaria
+    };
+    return (jsxRuntimeExports.jsx("div", { className: cn('hello-cli-fixed hello-cli-z-50', 'hello-cli-button-container', classesPosicao[posicao]), children: jsxRuntimeExports.jsx(Button, { onClick: aoAlternar, size: "lg", className: cn('hello-cli-h-14 hello-cli-w-14 hello-cli-rounded-full hello-cli-shadow-lg hover:hello-cli-shadow-xl hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-flex hello-cli-items-center hello-cli-justify-center', 'hello-cli-chat-button', estaAberto && 'hello-cli-rotate-180'), style: estiloBotao, children: estaAberto ? (jsxRuntimeExports.jsx(X, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) : (jsxRuntimeExports.jsx(MessageCircle, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) }) }));
+};
+
+function Avatar({ className, ...props }) {
+    return (jsxRuntimeExports.jsx(AvatarPrimitive__namespace.Root, { "data-slot": "avatar", className: cn("relative flex size-8 shrink-0 overflow-hidden rounded-full", className), ...props }));
+}
+function AvatarFallback({ className, ...props }) {
+    return (jsxRuntimeExports.jsx(AvatarPrimitive__namespace.Fallback, { "data-slot": "avatar-fallback", className: cn("bg-muted flex size-full items-center justify-center rounded-full", className), ...props }));
+}
+
+const CabecalhoChat = ({ titulo, corPrimaria, aoFechar }) => {
+    // Estilos do cabeçalho
+    const estilosCabecalho = {
+        backgroundColor: corPrimaria,
+    };
+    return (jsxRuntimeExports.jsxs("div", { className: cn('hello-cli-flex hello-cli-items-center hello-cli-justify-between hello-cli-p-4 hello-cli-border-b hello-cli-rounded-t-lg hello-cli-text-white hello-cli-shrink-0', 'hello-cli-header'), style: estilosCabecalho, children: [jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-items-center hello-cli-gap-2", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-8 hello-cli-w-8", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-white/20", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-4 hello-cli-w-4" }) }) }), jsxRuntimeExports.jsx("h3", { className: "hello-cli-font-semibold hello-cli-text-sm", children: titulo })] }), jsxRuntimeExports.jsx(Button, { variant: "ghost", size: "sm", onClick: aoFechar, className: "hello-cli-text-white hover:hello-cli-bg-white/20 hello-cli-h-8 hello-cli-w-8 hello-cli-p-0 hello-cli-flex hello-cli-items-center hello-cli-justify-center", children: jsxRuntimeExports.jsx(X, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }));
+};
+
+function ScrollArea({ className, children, ...props }) {
+    return (jsxRuntimeExports.jsxs(ScrollAreaPrimitive__namespace.Root, { "data-slot": "scroll-area", className: cn("relative", className), ...props, children: [jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.Viewport, { "data-slot": "scroll-area-viewport", className: "focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1", children: children }), jsxRuntimeExports.jsx(ScrollBar, {}), jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.Corner, {})] }));
+}
+function ScrollBar({ className, orientation = "vertical", ...props }) {
+    return (jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.ScrollAreaScrollbar, { "data-slot": "scroll-area-scrollbar", orientation: orientation, className: cn("flex touch-none p-px transition-colors select-none", orientation === "vertical" &&
+            "h-full w-2.5 border-l border-l-transparent", orientation === "horizontal" &&
+            "h-2.5 flex-col border-t border-t-transparent", className), ...props, children: jsxRuntimeExports.jsx(ScrollAreaPrimitive__namespace.ScrollAreaThumb, { "data-slot": "scroll-area-thumb", className: "bg-border relative flex-1 rounded-full" }) }));
+}
+
+const MensagemChat = ({ mensagem }) => {
+    const eDoUsuario = mensagem.role === 'user';
+    // Estilos para as mensagens
+    const estiloBalaoMensagem = {
+        backgroundColor: eDoUsuario ? 'hsl(222.2, 47.4%, 11.2%)' : 'hsl(210, 40%, 96.1%)',
+        color: eDoUsuario ? '#ffffff' : 'hsl(215.4, 16.3%, 46.9%)',
+    };
+    return (jsxRuntimeExports.jsxs("div", { className: cn('hello-cli-flex hello-cli-gap-2', 'hello-cli-message-row', eDoUsuario ? 'hello-cli-justify-end hello-cli-user-row' : 'hello-cli-justify-start hello-cli-bot-row'), children: [!eDoUsuario && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) })), jsxRuntimeExports.jsx("div", { className: cn('hello-cli-max-w-[70%] hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2 hello-cli-text-sm hello-cli-message-bubble', eDoUsuario
+                    ? 'hello-cli-bg-primary hello-cli-text-primary-foreground hello-cli-user-message'
+                    : 'hello-cli-bg-muted hello-cli-text-muted-foreground hello-cli-bot-message'), style: estiloBalaoMensagem, children: mensagem.content }), eDoUsuario && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-primary", children: jsxRuntimeExports.jsx(User, { className: "hello-cli-h-3 hello-cli-w-3 hello-cli-text-primary-foreground" }) }) }))] }));
+};
+
+/**
+ * Componente que exibe uma animação de digitação
+ * para indicar que o bot está processando uma resposta
+ */
+const IndicadorDigitacao = ({ corAvatar = '', corPontos = '' } = {}) => {
+    // Estilos dinâmicos
+    const estiloAvatar = corAvatar ? { backgroundColor: corAvatar } : {};
+    const estiloPontos = corPontos ? { backgroundColor: corPontos } : {};
+    return (jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-2 hello-cli-justify-start", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", style: estiloAvatar, children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) }), jsxRuntimeExports.jsx("div", { className: "hello-cli-bg-muted hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2", children: jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-1", children: [jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: estiloPontos }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { ...estiloPontos, animationDelay: '0.1s' } }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { ...estiloPontos, animationDelay: '0.2s' } })] }) })] }));
+};
+
+const AreaMensagens = require$$0.forwardRef(({ mensagens, estaDigitando, refFinal }, ref) => {
+    // Usar a ref passada ou a interna
+    const refFinalEfetiva = refFinal || ref;
+    return (jsxRuntimeExports.jsx(ScrollArea, { className: cn('hello-cli-flex-1 hello-cli-p-4 hello-cli-overflow-y-auto hello-cli-scroll-smooth', 'hello-cli-messages-area'), children: jsxRuntimeExports.jsxs("div", { className: cn('hello-cli-space-y-4 hello-cli-pb-4', 'hello-cli-message-list'), children: [mensagens.map((mensagem) => (jsxRuntimeExports.jsx(MensagemChat, { mensagem: mensagem }, mensagem.id))), estaDigitando && jsxRuntimeExports.jsx(IndicadorDigitacao, {}), jsxRuntimeExports.jsx("div", { ref: refFinalEfetiva, className: "hello-cli-h-px hello-cli-w-full" })] }) }));
+});
+// Adiciona displayName para melhorar debugabilidade
+AreaMensagens.displayName = 'AreaMensagens';
+
+function Input({ className, type, ...props }) {
+    return (jsxRuntimeExports.jsx("input", { type: type, "data-slot": "input", className: cn("file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]", "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive", className), ...props }));
+}
+
+const AreaEntrada = ({ valor, aoMudar, aoPressionarTecla, aoEnviar, placeholder, corPrimaria }) => {
+    const inputRef = require$$0.useRef(null);
+    // Validações
+    const mensagemValida = valor.trim().length > 0;
+    // Estilos
+    const estiloBotao = {
+        backgroundColor: corPrimaria
+    };
+    return (jsxRuntimeExports.jsx("div", { className: cn('hello-cli-p-4 hello-cli-border-t hello-cli-mt-auto hello-cli-bg-background hello-cli-shrink-0', 'hello-cli-input-area'), children: jsxRuntimeExports.jsxs("div", { className: cn('hello-cli-flex hello-cli-gap-2', 'hello-cli-input-container'), children: [jsxRuntimeExports.jsx(Input, { ref: inputRef, value: valor, onChange: aoMudar, onKeyPress: aoPressionarTecla, placeholder: placeholder, className: cn('hello-cli-flex-1', 'hello-cli-input') }), jsxRuntimeExports.jsx(Button, { onClick: aoEnviar, size: "sm", disabled: !mensagemValida, style: estiloBotao, className: cn('hello-cli-px-4 hello-cli-py-2 hello-cli-rounded-full hello-cli-flex hello-cli-items-center hello-cli-justify-center hello-cli-transition-all hover:hello-cli-opacity-90', 'hello-cli-send-button'), children: jsxRuntimeExports.jsx(Send, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }) }));
+};
+
+// Componente principal com nomes em português
+const ChatWidget$1 = ({ initialMessages = [], placeholder = "Digite sua mensagem...", onSendMessage, position = "left", primaryColor = "hsl(var(--primary))", title = "Assistente Virtual", welcomeMessage = "Olá! Como posso ajudá-lo hoje?", onToggle, defaultOpen = false, height = "max", className, isTyping: externalTypingState, onTypingChange, }) => {
+    // Estados
+    const [estaAberto, setEstaAberto] = require$$0.useState(defaultOpen);
+    const [mensagens, setMensagens] = require$$0.useState(initialMessages.length > 0
         ? initialMessages
         : [
             {
@@ -4626,174 +4691,262 @@ const ChatWidget = ({ initialMessages = [], placeholder = "Digite sua mensagem..
                 createdAt: new Date(),
             },
         ]);
-    const [inputValue, setInputValue] = require$$0.useState("");
-    const [isTyping, setIsTyping] = require$$0.useState(false);
-    const messagesEndRef = require$$0.useRef(null);
+    const [valorEntrada, setValorEntrada] = require$$0.useState("");
+    const [estaDigitandoInterno, setEstaDigitandoInterno] = require$$0.useState(false);
+    // Usar estado de digitação externo se fornecido, ou interno se não
+    const estaDigitando = externalTypingState !== undefined ? externalTypingState : estaDigitandoInterno;
+    // Debug - remover em produção
+    require$$0.useEffect(() => {
+        console.log('Estado de digitação:', estaDigitando);
+    }, [estaDigitando]);
+    // Referências
+    const finalMensagensRef = require$$0.useRef(null);
     const inputRef = require$$0.useRef(null);
-    const scrollToBottom = () => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({
-                behavior: "smooth",
-                block: "end",
-                inline: "nearest"
-            });
-        }
-    };
-    require$$0.useEffect(() => {
-        if (isOpen) {
-            setTimeout(scrollToBottom, 100);
-        }
-    }, [isOpen]);
-    require$$0.useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
-    require$$0.useEffect(() => {
-        if (isOpen && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [isOpen]);
-    const handleToggle = () => {
-        const newState = !isOpen;
-        setIsOpen(newState);
-        onToggle?.(newState);
-    };
-    const handleSendMessage = async () => {
-        if (!inputValue.trim())
-            return;
-        const userMessage = {
-            id: Date.now().toString(),
-            role: 'user',
-            content: inputValue,
-            createdAt: new Date(),
-        };
-        setMessages((prev) => [...prev, userMessage]);
-        setInputValue("");
-        onSendMessage?.(inputValue);
-        setIsTyping(true);
-        setTimeout(() => {
-            const botMessage = {
-                id: (Date.now() + 1).toString(),
-                role: 'bot',
-                content: `Obrigado pela sua mensagem: "${inputValue}". Como posso ajudá-lo mais?`,
-                createdAt: new Date(),
-            };
-            setMessages((prev) => [...prev, botMessage]);
-            setIsTyping(false);
-        }, 1500);
-    };
-    const handleKeyPress = (e) => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            handleSendMessage();
-        }
-    };
-    const positionClasses = {
-        left: "hello-cli-left-6 hello-cli-bottom-6",
-        right: "hello-cli-right-6 hello-cli-bottom-6",
-    };
-    const chatPositionClasses = {
+    // Constantes para classes
+    const classesPosicaoChat = {
         left: "hello-cli-left-6 hello-cli-bottom-24",
         right: "hello-cli-right-6 hello-cli-bottom-24",
     };
-    const chatHeightClasses = {
+    const classesAlturaChat = {
         min: "hello-cli-h-96",
         med: "hello-cli-h-[30rem]",
         max: "hello-cli-h-[36rem]",
     };
-    return (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-root", "hello-cli-chatwidget-wrapper", className), children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-fixed hello-cli-bottom-0 hello-cli-right-0 hello-cli-w-full hello-cli-max-w-[400px]", "hello-cli-chatwidget-container"), children: [jsxRuntimeExports.jsx("div", { className: cn("hello-cli-fixed hello-cli-z-50", "hello-cli-button-container", positionClasses[position]), children: jsxRuntimeExports.jsx(Button, { onClick: handleToggle, size: "lg", className: cn("hello-cli-h-14 hello-cli-w-14 hello-cli-rounded-full hello-cli-shadow-lg hover:hello-cli-shadow-xl hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-flex hello-cli-items-center hello-cli-justify-center", "hello-cli-chat-button", isOpen && "hello-cli-rotate-180"), style: { backgroundColor: primaryColor }, children: isOpen ? (jsxRuntimeExports.jsx(X, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) : (jsxRuntimeExports.jsx(MessageCircle, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-transition-transform hello-cli-text-white" })) }) }), isOpen && (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-fixed hello-cli-z-50 hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-bg-background", chatPositionClasses[position], "hello-cli-animate-slide-in", "hello-cli-chat-container"), children: jsxRuntimeExports.jsxs(Card, { className: cn("hello-cli-w-80 hello-cli-shadow-2xl hello-cli-rounded-lg hello-cli-overflow-hidden hello-cli-flex hello-cli-flex-col", chatHeightClasses[height], "hello-cli-card"), style: {
-                            width: '20rem',
-                            borderRadius: '0.5rem',
-                            overflow: 'hidden',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-                        }, children: [jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-items-center hello-cli-justify-between hello-cli-p-4 hello-cli-border-b hello-cli-rounded-t-lg hello-cli-text-white hello-cli-shrink-0", "hello-cli-header"), style: {
-                                    backgroundColor: primaryColor,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    padding: '1rem',
-                                    borderBottom: '1px solid rgba(0,0,0,0.1)',
-                                    borderTopLeftRadius: '0.5rem',
-                                    borderTopRightRadius: '0.5rem',
-                                    color: 'white',
-                                    flexShrink: 0
-                                }, children: [jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-items-center hello-cli-gap-2", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-8 hello-cli-w-8", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-white/20", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-4 hello-cli-w-4" }) }) }), jsxRuntimeExports.jsx("h3", { className: "hello-cli-font-semibold hello-cli-text-sm", children: title })] }), jsxRuntimeExports.jsx(Button, { variant: "ghost", size: "sm", onClick: handleToggle, className: "hello-cli-text-white hover:hello-cli-bg-white/20 hello-cli-h-8 hello-cli-w-8 hello-cli-p-0 hello-cli-flex hello-cli-items-center hello-cli-justify-center", children: jsxRuntimeExports.jsx(X, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }), jsxRuntimeExports.jsx(ScrollArea, { className: cn("hello-cli-flex-1 hello-cli-p-4 hello-cli-overflow-y-auto hello-cli-scroll-smooth", "hello-cli-messages-area"), style: {
-                                    flex: '1',
-                                    padding: '1rem',
-                                    overflowY: 'auto',
-                                    scrollBehavior: 'smooth'
-                                }, children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-space-y-4 hello-cli-pb-4", "hello-cli-message-list"), style: {
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '1rem',
-                                        paddingBottom: '1rem'
-                                    }, children: [messages.map((message) => (jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-gap-2", "hello-cli-message-row", message.role === 'user' ? "hello-cli-justify-end hello-cli-user-row" : "hello-cli-justify-start hello-cli-bot-row"), style: {
-                                                display: 'flex',
-                                                gap: '0.5rem',
-                                                justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start'
-                                            }, children: [message.role === 'bot' && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) })), jsxRuntimeExports.jsx("div", { className: cn("hello-cli-max-w-[70%] hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2 hello-cli-text-sm hello-cli-message-bubble", message.role === 'user'
-                                                        ? "hello-cli-bg-primary hello-cli-text-primary-foreground hello-cli-user-message"
-                                                        : "hello-cli-bg-muted hello-cli-text-muted-foreground hello-cli-bot-message"), style: {
-                                                        borderRadius: '0.5rem',
-                                                        backgroundColor: message.role === 'user'
-                                                            ? 'hsl(222.2, 47.4%, 11.2%)'
-                                                            : 'hsl(210, 40%, 96.1%)',
-                                                        color: message.role === 'user'
-                                                            ? '#ffffff'
-                                                            : 'hsl(215.4, 16.3%, 46.9%)',
-                                                        padding: '0.5rem 0.75rem',
-                                                        maxWidth: '70%',
-                                                        overflow: 'hidden'
-                                                    }, children: message.content }), message.role === 'user' && (jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-primary", children: jsxRuntimeExports.jsx(User, { className: "hello-cli-h-3 hello-cli-w-3 hello-cli-text-primary-foreground" }) }) }))] }, message.id))), isTyping && (jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-2 hello-cli-justify-start", children: [jsxRuntimeExports.jsx(Avatar, { className: "hello-cli-h-6 hello-cli-w-6 hello-cli-mt-1", children: jsxRuntimeExports.jsx(AvatarFallback, { className: "hello-cli-bg-muted", children: jsxRuntimeExports.jsx(Bot, { className: "hello-cli-h-3 hello-cli-w-3" }) }) }), jsxRuntimeExports.jsx("div", { className: "hello-cli-bg-muted hello-cli-rounded-lg hello-cli-px-3 hello-cli-py-2", children: jsxRuntimeExports.jsxs("div", { className: "hello-cli-flex hello-cli-gap-1", children: [jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce" }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { animationDelay: "0.1s" } }), jsxRuntimeExports.jsx("div", { className: "hello-cli-w-2 hello-cli-h-2 hello-cli-bg-muted-foreground hello-cli-rounded-full hello-cli-animate-bounce", style: { animationDelay: "0.2s" } })] }) })] })), jsxRuntimeExports.jsx("div", { ref: messagesEndRef, className: "hello-cli-h-px hello-cli-w-full" })] }) }), jsxRuntimeExports.jsx("div", { className: cn("hello-cli-p-4 hello-cli-border-t hello-cli-mt-auto hello-cli-bg-background hello-cli-shrink-0", "hello-cli-input-area"), style: {
-                                    padding: '1rem',
-                                    borderTop: '1px solid rgba(0,0,0,0.1)',
-                                    marginTop: 'auto',
-                                    backgroundColor: 'white',
-                                    flexShrink: 0
-                                }, children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-flex hello-cli-gap-2", "hello-cli-input-container"), style: {
-                                        display: 'flex',
-                                        gap: '0.5rem'
-                                    }, children: [jsxRuntimeExports.jsx(Input, { ref: inputRef, value: inputValue, onChange: (e) => setInputValue(e.target.value), onKeyPress: handleKeyPress, placeholder: placeholder, className: cn("hello-cli-flex-1", "hello-cli-input"), style: {
-                                                flex: '1',
-                                                padding: '0.5rem',
-                                                borderRadius: '0.375rem',
-                                                border: '1px solid #e2e8f0'
-                                            } }), jsxRuntimeExports.jsx(Button, { onClick: handleSendMessage, size: "sm", disabled: !inputValue.trim(), style: { backgroundColor: primaryColor }, className: cn("hello-cli-px-4 hello-cli-py-2 hello-cli-rounded-full hello-cli-flex hello-cli-items-center hello-cli-justify-center hello-cli-transition-all hover:hello-cli-opacity-90", "hello-cli-send-button"), children: jsxRuntimeExports.jsx(Send, { className: "hello-cli-h-4 hello-cli-w-4 hello-cli-text-white" }) })] }) })] }) }))] }) }));
+    // Funções
+    const scrollParaFinal = () => {
+        if (finalMensagensRef.current) {
+            try {
+                finalMensagensRef.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "end",
+                    inline: "nearest"
+                });
+                // Backup para garantir que o scroll aconteça
+                const parentElement = finalMensagensRef.current.parentElement;
+                if (parentElement) {
+                    parentElement.scrollTop = parentElement.scrollHeight;
+                }
+                // Log para debug
+                console.log('Scroll executado para elemento:', finalMensagensRef.current);
+            }
+            catch (error) {
+                console.error('Erro ao fazer scroll:', error);
+            }
+        }
+        else {
+            console.warn('Referência para o final das mensagens não encontrada');
+        }
+    };
+    const alternarChat = () => {
+        const novoEstado = !estaAberto;
+        setEstaAberto(novoEstado);
+        onToggle?.(novoEstado);
+    };
+    const enviarMensagem = async () => {
+        if (!valorEntrada.trim())
+            return;
+        const mensagemUsuario = {
+            id: Date.now().toString(),
+            role: 'user',
+            content: valorEntrada,
+            createdAt: new Date(),
+        };
+        setMensagens((prev) => [...prev, mensagemUsuario]);
+        setValorEntrada("");
+        onSendMessage?.(valorEntrada);
+        // Simulando resposta (remover em implementação real)
+        const novoEstadoDigitacao = true;
+        setEstaDigitandoInterno(novoEstadoDigitacao);
+        onTypingChange?.(novoEstadoDigitacao);
+        // Garanta que o indicador de digitação apareça por pelo menos 2 segundos
+        setTimeout(() => {
+            const mensagemBot = {
+                id: (Date.now() + 1).toString(),
+                role: 'bot',
+                content: `Obrigado pela sua mensagem: "${valorEntrada}". Como posso ajudá-lo mais?`,
+                createdAt: new Date(),
+            };
+            setMensagens((prev) => [...prev, mensagemBot]);
+            const estadoFinalDigitacao = false;
+            setEstaDigitandoInterno(estadoFinalDigitacao);
+            onTypingChange?.(estadoFinalDigitacao);
+        }, 3000);
+    };
+    const aoTeclarEnter = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            enviarMensagem();
+        }
+    };
+    // Efeitos
+    require$$0.useEffect(() => {
+        if (estaAberto) {
+            // Rolar para o final quando o chat for aberto
+            setTimeout(scrollParaFinal, 100);
+        }
+    }, [estaAberto]);
+    require$$0.useEffect(() => {
+        // Rolar para o final quando mensagens mudam
+        setTimeout(scrollParaFinal, 10);
+    }, [mensagens]);
+    require$$0.useEffect(() => {
+        // Rolar para o final quando o estado de digitação muda
+        if (estaDigitando) {
+            setTimeout(scrollParaFinal, 10);
+        }
+    }, [estaDigitando]);
+    require$$0.useEffect(() => {
+        if (estaAberto && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [estaAberto]);
+    return (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-root", "hello-cli-chatwidget-wrapper", className), children: jsxRuntimeExports.jsxs("div", { className: cn("hello-cli-fixed hello-cli-bottom-0 hello-cli-right-0 hello-cli-w-full hello-cli-max-w-[400px]", "hello-cli-chatwidget-container"), children: [jsxRuntimeExports.jsx(BotaoToggle, { estaAberto: estaAberto, aoAlternar: alternarChat, corPrimaria: primaryColor, posicao: position }), estaAberto && (jsxRuntimeExports.jsx("div", { className: cn("hello-cli-fixed hello-cli-z-50 hello-cli-transition-all hello-cli-duration-300 hello-cli-ease-in-out hello-cli-bg-background", classesPosicaoChat[position], "hello-cli-animate-slide-in", "hello-cli-chat-container"), children: jsxRuntimeExports.jsxs(Card, { className: cn("hello-cli-w-80 hello-cli-shadow-2xl hello-cli-rounded-lg hello-cli-overflow-hidden hello-cli-flex hello-cli-flex-col", classesAlturaChat[height], "hello-cli-card"), children: [jsxRuntimeExports.jsx(CabecalhoChat, { titulo: title, corPrimaria: primaryColor, aoFechar: alternarChat }), jsxRuntimeExports.jsx(AreaMensagens, { mensagens: mensagens, estaDigitando: estaDigitando, refFinal: finalMensagensRef }), jsxRuntimeExports.jsx(AreaEntrada, { valor: valorEntrada, aoMudar: (e) => setValorEntrada(e.target.value), aoPressionarTecla: aoTeclarEnter, aoEnviar: enviarMensagem, placeholder: placeholder, corPrimaria: primaryColor })] }) }))] }) }));
 };
 
-// Updated UUID generation function with proper type checking
+/**
+ * Componente de Chat Widget
+ *
+ * Esta implementação usa a versão refatorada do componente
+ * que possui uma estrutura mais modular e limpa
+ */
+const ChatWidget = (props) => {
+    return jsxRuntimeExports.jsx(ChatWidget$1, { ...props });
+};
+
+/**
+ * Hook para gerenciar o estado de digitação de um chat
+ *
+ * @example
+ * ```tsx
+ * const { estaDigitando, iniciarDigitacao, pararDigitacao } = useIndicadorDigitacao();
+ *
+ * // Iniciar animação de digitação
+ * iniciarDigitacao();
+ *
+ * // Parar animação de digitação após enviar mensagem
+ * const enviarResposta = async () => {
+ *   iniciarDigitacao();
+ *
+ *   try {
+ *     const resposta = await apiChat.enviarMensagem(mensagem);
+ *     adicionarMensagem(resposta);
+ *   } finally {
+ *     pararDigitacao();
+ *   }
+ * };
+ * ```
+ */
+function useIndicadorDigitacao({ duracao = 1500 } = {}) {
+    const [estaDigitando, setEstaDigitando] = require$$0.useState(false);
+    const [temporizador, setTemporizador] = require$$0.useState(null);
+    /**
+     * Inicia a animação de digitação
+     */
+    const iniciarDigitacao = require$$0.useCallback(() => {
+        setEstaDigitando(true);
+    }, []);
+    /**
+     * Para a animação de digitação imediatamente
+     */
+    const pararDigitacao = require$$0.useCallback(() => {
+        setEstaDigitando(false);
+    }, []);
+    /**
+     * Inicia a animação de digitação por um tempo determinado
+     */
+    const digitarPorTempo = require$$0.useCallback((tempoMs = duracao) => {
+        // Limpa qualquer temporizador pendente
+        if (temporizador) {
+            clearTimeout(temporizador);
+        }
+        // Inicia a digitação
+        setEstaDigitando(true);
+        // Define o temporizador para parar a digitação após o tempo
+        const novoTemporizador = setTimeout(() => {
+            setEstaDigitando(false);
+            setTemporizador(null);
+        }, tempoMs);
+        setTemporizador(novoTemporizador);
+        return () => {
+            if (novoTemporizador) {
+                clearTimeout(novoTemporizador);
+            }
+        };
+    }, [duracao, temporizador]);
+    return {
+        estaDigitando,
+        iniciarDigitacao,
+        pararDigitacao,
+        digitarPorTempo
+    };
+}
+
+// Função para gerar UUID
 const generateUUID = () => {
-    // Check if crypto.randomUUID is available
     if (typeof window !== 'undefined' && 'crypto' in window) {
         const crypto = window.crypto;
         if (typeof crypto.randomUUID === 'function') {
             return crypto.randomUUID();
         }
     }
-    // Fallback implementation
+    // Implementação alternativa
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = (Math.random() * 16) | 0;
         const v = c === 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
 };
+/**
+ * Hook para gerenciar o estado e interações de um chatbot
+ *
+ * @returns {Object} Estado e funções do chat
+ */
 function useChatbot() {
+    // Estado para armazenar as mensagens
     const [messages, setMessages] = require$$0.useState([]);
+    // Usando o hook de indicador de digitação
+    const { estaDigitando, iniciarDigitacao, pararDigitacao } = useIndicadorDigitacao();
+    // Mutação para enviar mensagem
     const sendMessageMutation = reactQuery.useMutation({
         mutationFn: async (message) => {
-            const res = await axios__default["default"].post("/api/chatbot", { message });
-            return res.data;
+            // Iniciar indicador de digitação antes da chamada
+            iniciarDigitacao();
+            try {
+                const res = await axios__default["default"].post("/api/chatbot", { message });
+                return res.data;
+            }
+            catch (error) {
+                // Em caso de erro, parar o indicador
+                pararDigitacao();
+                throw error;
+            }
         },
         onSuccess: (data, variables) => {
+            // Adicionar mensagens do usuário e bot ao estado
             const messageId = generateUUID();
-            setMessages((prev) => [
-                ...prev,
-                { id: messageId, sender: "user", text: variables },
-                { id: generateUUID(), sender: "bot", text: data.reply },
-            ]);
+            // Adicionar mensagem do usuário
+            const userMessage = {
+                id: messageId,
+                role: 'user',
+                content: variables,
+                createdAt: new Date()
+            };
+            // Adicionar resposta do bot
+            const botMessage = {
+                id: generateUUID(),
+                role: 'bot',
+                content: data.reply,
+                createdAt: new Date()
+            };
+            setMessages((prev) => [...prev, userMessage, botMessage]);
+            // Parar o indicador quando a resposta chegar
+            pararDigitacao();
         },
     });
+    /**
+     * Envia uma mensagem para o chatbot
+     * @param {string} text Texto da mensagem
+     */
     const sendMessage = (text) => {
         if (!text.trim())
             return;
@@ -4803,9 +4956,19 @@ function useChatbot() {
         messages,
         sendMessage,
         isLoading: sendMessageMutation.isPending,
+        estaDigitando,
+        iniciarDigitacao,
+        pararDigitacao
     };
 }
 
+exports.AreaEntrada = AreaEntrada;
+exports.AreaMensagens = AreaMensagens;
+exports.BotaoToggle = BotaoToggle;
+exports.CabecalhoChat = CabecalhoChat;
 exports.ChatWidget = ChatWidget;
+exports.IndicadorDigitacao = IndicadorDigitacao;
+exports.MensagemChat = MensagemChat;
 exports.useChatbot = useChatbot;
+exports.useIndicadorDigitacao = useIndicadorDigitacao;
 //# sourceMappingURL=index.js.map

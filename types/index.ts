@@ -17,6 +17,8 @@ export interface ChatWidgetProps {
   onToggle?: (isOpen: boolean) => void
   defaultOpen?: boolean
   className?: string
+  isTyping?: boolean // Propriedade para controlar externamente o indicador de digitação
+  onTypingChange?: (isTyping: boolean) => void // Callback para quando o estado de digitação muda
 }
 
 // Versões em português das interfaces
@@ -38,5 +40,7 @@ export interface PropsChatWidget {
   mensagemBoasVindas?: string
   aoAlternar?: (estaAberto: boolean) => void
   abertoPadrao?: boolean
+  estaDigitando?: boolean // Propriedade para controlar externamente o indicador de digitação
+  aoMudarDigitacao?: (estaDigitando: boolean) => void // Callback para quando o estado de digitação muda
   className?: string
 }

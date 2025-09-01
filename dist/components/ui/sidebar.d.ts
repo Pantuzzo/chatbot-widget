@@ -42,10 +42,10 @@ declare function SidebarGroupAction({ className, asChild, ...props }: React.Comp
 declare function SidebarGroupContent({ className, ...props }: React.ComponentProps<"div">): import("react/jsx-runtime").JSX.Element;
 declare function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">): import("react/jsx-runtime").JSX.Element;
 declare function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">): import("react/jsx-runtime").JSX.Element;
-declare const sidebarMenuButtonVariants: (props?: ({
-    variant?: "default" | "outline" | null | undefined;
-    size?: "default" | "sm" | "lg" | null | undefined;
-} & import("class-variance-authority/dist/types").ClassProp) | undefined) => string;
+declare const sidebarMenuButtonVariants: (props?: {
+    variant?: "default" | "outline";
+    size?: "default" | "sm" | "lg";
+} & import("class-variance-authority/dist/types").ClassProp) => string;
 declare function SidebarMenuButton({ asChild, isActive, variant, size, tooltip, className, ...props }: React.ComponentProps<"button"> & {
     asChild?: boolean;
     isActive?: boolean;

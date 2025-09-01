@@ -1,7 +1,6 @@
 
 
-// Make sure the import path matches the actual file location and casing
-import { ChatWidget } from "../components/chatbot/hello-cli"
+import { ChatWidget } from "../components/chatbot/chat-widget"
 
 export default function Home() {
   return (
@@ -22,14 +21,30 @@ export default function Home() {
           </ul>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Como usar</h2>
           <div className="space-y-4 text-gray-600">
             <p>
               O widget do chatbot aparece como uma bolinha flutuante no canto da tela. Clique nela para abrir o chat e
               começar a conversar!
             </p>
-            <p>Você pode personalizar cores, posição, mensagens e muito mais através das props do componente.</p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-2xl font-semibold mb-4">Exemplos</h2>
+          <div className="space-y-4">
+            <div className="p-4 border rounded-md bg-slate-50 hover:bg-slate-100 transition-colors">
+              <a href="/exemplo-digitacao" className="text-blue-600 font-medium">
+                Exemplo de Controle de Digitação
+              </a>
+              <p className="text-gray-600 mt-2">
+                Demonstração de uso do hook useIndicadorDigitacao para controlar o estado de digitação do chat.
+              </p>
+            </div>
+            <p className="text-gray-600 mt-4">
+              Você pode personalizar cores, posição, mensagens e muito mais através das props do componente.
+            </p>
           </div>
         </div>
       </div>

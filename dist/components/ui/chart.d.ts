@@ -23,8 +23,8 @@ declare function ChartContainer({ id, className, children, config, ...props }: R
 declare const ChartStyle: ({ id, config }: {
     id: string;
     config: ChartConfig;
-}) => import("react/jsx-runtime").JSX.Element | null;
-declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
+}) => import("react/jsx-runtime").JSX.Element;
+declare const ChartTooltip: React.FC<any>;
 type TooltipPayloadItem = {
     name?: string;
     dataKey?: string;
@@ -47,13 +47,13 @@ declare function ChartTooltipContent({ active, payload, className, indicator, hi
     color?: string;
     nameKey?: string;
     labelKey?: string;
-} & React.ComponentProps<"div">): import("react/jsx-runtime").JSX.Element | null;
-declare const ChartLegend: typeof RechartsPrimitive.Legend;
+} & React.ComponentProps<"div">): import("react/jsx-runtime").JSX.Element;
+declare const ChartLegend: React.FC<any>;
 type ChartLegendContentProps = React.ComponentProps<"div"> & {
     payload?: Array<any>;
     verticalAlign?: "top" | "bottom" | "middle";
     hideIcon?: boolean;
     nameKey?: string;
 };
-declare function ChartLegendContent({ className, hideIcon, payload, verticalAlign, nameKey, }: ChartLegendContentProps): import("react/jsx-runtime").JSX.Element | null;
+declare function ChartLegendContent({ className, hideIcon, payload, verticalAlign, nameKey, }: ChartLegendContentProps): import("react/jsx-runtime").JSX.Element;
 export { ChartContainer, ChartLegend, ChartLegendContent, ChartStyle, ChartTooltip, ChartTooltipContent };

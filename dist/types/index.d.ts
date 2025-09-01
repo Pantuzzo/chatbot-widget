@@ -16,4 +16,27 @@ export interface ChatWidgetProps {
     onToggle?: (isOpen: boolean) => void;
     defaultOpen?: boolean;
     className?: string;
+    isTyping?: boolean;
+    onTypingChange?: (isTyping: boolean) => void;
+}
+export interface Mensagem {
+    id: string;
+    role: 'user' | 'bot';
+    content: string;
+    createdAt: Date;
+}
+export interface PropsChatWidget {
+    mensagensIniciais?: Mensagem[];
+    placeholder?: string;
+    aoEnviarMensagem?: (mensagem: string) => void;
+    posicao?: "left" | "right";
+    altura?: "min" | "med" | "max";
+    corPrimaria?: string;
+    titulo?: string;
+    mensagemBoasVindas?: string;
+    aoAlternar?: (estaAberto: boolean) => void;
+    abertoPadrao?: boolean;
+    estaDigitando?: boolean;
+    aoMudarDigitacao?: (estaDigitando: boolean) => void;
+    className?: string;
 }

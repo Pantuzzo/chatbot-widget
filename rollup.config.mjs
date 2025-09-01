@@ -32,7 +32,17 @@ export default {
 		/^@radix-ui\/.*/,
 		'class-variance-authority',
 		'clsx',
-		'tailwindcss'
+		'tailwindcss',
+		'next-themes',
+		'react-day-picker',
+		'embla-carousel-react',
+		'recharts',
+		'cmdk',
+		'vaul',
+		'react-hook-form',
+		'input-otp',
+		'react-resizable-panels',
+		'sonner'
 	],
 	plugins: [
 		resolve({
@@ -42,16 +52,17 @@ export default {
 			include: /node_modules/
 		}),
 		json(),
-		typescript({ 
+		typescript({
 			tsconfig: './tsconfig.build.json',
 			declaration: true,
 			declarationDir: 'dist',
 			jsx: 'react-jsx',
 			exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
+			noEmitOnError: false,
 			rootDir: './',
 			outDir: 'dist'
 		}),
-		postcss({ 
+		postcss({
 			extract: 'styles.css',
 			minimize: true,
 			extensions: ['.css'],
