@@ -28,7 +28,10 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "clean-branches": "cd scripts && ./local-branch-cleanup.sh",
+    "publish-package": "./scripts/publish-package.sh",
+    "coverage": "ARG=\"$npm_config_argv\" bash ./scripts/run-coverage.sh"
   },
   "peerDependencies": {
     "axios": "^1.0.0",
